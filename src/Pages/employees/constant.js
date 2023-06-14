@@ -19,4 +19,12 @@ export const employeesColumns = [
     Header: 'Id',
     accessor: 'col5',
   },
+  {
+    Header: 'Delete employee',
+    accessor: 'col6',
+  },
+  {
+    Header: 'Update employee',
+    accessor: 'col7',
+  },
 ];

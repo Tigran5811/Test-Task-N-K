@@ -2,7 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
 import { getEmployeesSelector } from '../../redux/selectors/employees';
-import { createEmployeeAction, getEmployeesAction } from '../../redux/actions/employees';
+import {
+  createEmployeeAction, deleteEmployeeAction, getEmployeesAction, updateEmployeeAction,
+} from '../../redux/actions/employees';
 import { Table } from '../../components/Table/Table';
 import { getMapEmployees } from './utils';
 import { employeesColumns } from './constant';
@@ -23,16 +25,19 @@ const Employees = () => {
     position: '',
 
   });
+
   const getEmployees = () => {
     dispatch(getEmployeesAction());
   };
+
   useEffect(() => {
     getEmployees();
   }, []);
 
   const openModal = () => {
-    setModal(!modal);
+    setModal(true);
   };
+
   const onChange = ({ currentTarget: { value, name } }) => {
     setStat((prev) => ({ ...prev, [name]: value }));
   };
@@ -43,11 +48,26 @@ const Employees = () => {
       name, surname, email, position,
     };
     dispatch(createEmployeeAction(data));
-    setModal(!modal);
+    setModal(false);
   };
 
   const closeModal = () => {
-    setModal(!modal);
+    setModal(false);
+  };
+
+  const deleteEmployee = (id) => {
+    dispatch(deleteEmployeeAction(id));
+  };
+  const updateEmployee = (item) => {
+    setModal(true);
+    setStat({
+      name: item.col1,
+      surname: item.col2,
+      email: item.col3,
+      position: item.col4,
+    });
+    // dispatch(updateEmployeeAction(item.col5));
+    // setModal(false);
   };
 
   return (
@@ -64,14 +84,16 @@ const Employees = () => {
         </form>
       </div>
       {
-    employees && (
-    <Table
-      employeesData={getMapEmployees(employees)}
-      columns={employeesColumns}
-    />
+                employees && (
+                <Table
+                  employeesData={getMapEmployees(employees)}
+                  columns={employeesColumns}
+                  deleteEmployee={deleteEmployee}
+                  updateEmployee={updateEmployee}
+                />
 
-    )
-}
+                )
+            }
     </div>
 
   );
