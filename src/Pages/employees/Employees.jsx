@@ -1,15 +1,20 @@
-import React from 'react';
-import { API } from '../../api';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getEmployeesSelector } from '../../redux/selectors/employees';
+import { getEmployeesAction } from '../../redux/actions/employees';
 
 const Employees = () => {
-  const getEmployees = async () => {
-    await API.employees.getEmployees();
-  };
+  const dispatch = useDispatch();
+  const employees = useSelector(getEmployeesSelector);
 
+  const getEmployees = () => {
+    dispatch(getEmployeesAction());
+  };
+  useEffect(() => {
+    getEmployees();
+  }, []);
   return (
-    <div>
-      <button onClick={getEmployees}>ckick</button>
-    </div>
+    <div />
   );
 };
 
