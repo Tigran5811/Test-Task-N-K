@@ -12,7 +12,6 @@ const AppLayout = () => (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Employees" element={<Employees />} />
-
       </Routes>
     </main>
   </div>
