@@ -1,10 +1,11 @@
-import Home from "./Pages/home/Home";
+import { BrowserRouter } from "react-router-dom";
+import AppLayout from "./components/AppLayout/AppLayout";
 
 const App = () => (
+  <BrowserRouter>
+    <AppLayout />
+  </BrowserRouter>
 
-  <div>
-    <Home />
-  </div>
 );
 
 export default App;

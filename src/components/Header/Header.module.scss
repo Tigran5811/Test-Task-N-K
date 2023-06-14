@@ -1,55 +1,15 @@
 .container {
     width: 100%;
-    padding: 20px;
+    min-height: 80px;
+    padding: 20px 60px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-shadow: -8px -11px 15px 5px rgb(0, 0, 0);
-
-    & div {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-
-        & a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            & img {
-                width: 30px;
-                height: 30px;
-            }
-
-            & .account_img {
-                width: 50px;
-                height: 50px;
-                border-radius: 100%;
-            }
-        }
-    }
-
-}
-
-.basket {
-    color: red;
+    font-size: 18px;
     font-weight: bold;
-    font-size: 12px;
-    position: relative;
 
-
-    & p {
-        position: absolute;
-        top: -10px;
-        left: 8px;
-
+    & a:hover {
+        color: rgb(143, 137, 137);
     }
-
-    & img {
-        width: 50px;
-        height: 50px;
-
-    }
-
-
 }
