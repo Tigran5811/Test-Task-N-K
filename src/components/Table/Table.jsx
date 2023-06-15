@@ -5,7 +5,7 @@ import styles from './Table.module.scss';
 const cx = classNames.bind(styles);
 
 export const Table = ({
-  data, columns, onRowClick, deleteId, openModalUpdate,
+  data, columns, onRowClick, deleteId, openModalUpdate, onEmployeeRowClick,
 }) => (
   <table>
     <thead>
@@ -13,17 +13,14 @@ export const Table = ({
     </thead>
     <tbody>
       {data?.map((item, index) => (
-        <tr
-          key={index}
-          className={cx({ pointer: Boolean(onRowClick) })}
-        >
+        <tr key={index}>
           {columns.map((columns, i) => {
             if (columns.Header === 'Email') {
-              return <td key={i}><a href="mailto:">{item[`col${i + 1}`]}</a></td>;
+              return <td><a href="mailto:">{item[`col${i + 1}`]}</a></td>;
             }
             if (columns.Header === 'Delete') {
               return (
-                <td key={i}>
+                <td>
                   <button onClick={() => {
                     deleteId(item.col5);
                   }}
@@ -35,7 +32,7 @@ export const Table = ({
             }
             if (columns.Header === 'Update') {
               return (
-                <td key={i}>
+                <td>
                   <button onClick={() => {
                     openModalUpdate(item);
                   }}
@@ -46,7 +43,18 @@ export const Table = ({
               );
             }
 
-            return <td key={i}>{item[`col${i + 1}`]}</td>;
+            return (
+              <td
+                role="button"
+                className={cx({ pointer: Boolean(onRowClick) })}
+                onClick={() => {
+                  onEmployeeRowClick(item.col5);
+                }}
+
+              >
+                {item[`col${i + 1}`]}
+              </td>
+            );
           })}
         </tr>
       ))}

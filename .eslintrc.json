@@ -35,7 +35,8 @@
         "react/react-in-jsx-scope":"off",
         "import/no-extraneous-dependencies": "off",
         "default-param-last":"off",
-        "no-underscore-dangle":"off"
+        "no-underscore-dangle":"off",
+        "jsx-a11y/no-noninteractive-element-to-interactive-role" : "off"
       
 
     }

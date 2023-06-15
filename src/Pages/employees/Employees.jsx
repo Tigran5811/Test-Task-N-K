@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames/bind';
+import { useNavigate } from 'react-router-dom';
 import { getEmployeesSelector } from '../../redux/selectors/employees';
 import {
   createEmployeeAction, deleteEmployeeAction, getEmployeesAction, updateEmployeeAction,
@@ -18,6 +19,7 @@ const Employees = () => {
   const [modal, setModal] = useState(false);
   const [flag, setFlag] = useState(true);
   const [id, setId] = useState(null);
+  const navigate = useNavigate();
 
   const [{
     name, surname, email, position,
@@ -94,10 +96,13 @@ const Employees = () => {
       position: '',
     });
   };
+  const onEmployeeRowClick = (id) => {
+    navigate(`/employee?id=${id}`);
+  };
 
   return (
     <div className={styles.container}>
-      <button onClick={openModal}>Add Modal</button>
+      <button onClick={openModal}>Create Employee</button>
       <div className={cx('modal', { open: modal })}>
         <form onSubmit={onSubmit}>
           <button type="button" className={styles.close} onClick={closeModal}>X</button>
@@ -113,6 +118,7 @@ const Employees = () => {
       {
                 employees && (
                 <Table
+                  onEmployeeRowClick={onEmployeeRowClick}
                   data={getMapEmployees(employees)}
                   columns={employeesColumns}
                   deleteId={deleteEmployee}

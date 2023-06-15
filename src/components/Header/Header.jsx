@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 export const Header = () => (
   <div className={cx('container')}>
     <NavLink to="/">Home</NavLink>
-    <NavLink to="/Employees">Employees</NavLink>
-    <NavLink to="/Tasks">Tasks</NavLink>
+    <NavLink to="/employees">Employees</NavLink>
+    <NavLink to="/tasks">Tasks</NavLink>
   </div>
 );

@@ -3,6 +3,8 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import employeesReducer from './reducers/employees';
 import tasksReducer from './reducers/tasks';
+import employeeReducer from './reducers/employee';
+import taskReducer from './reducers/task';
 
 const persistConfig = {
   key: 'root',
@@ -11,6 +13,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   employees: employeesReducer,
+  employee: employeeReducer,
+  task: taskReducer,
   tasks: tasksReducer,
 
 });
@@ -25,20 +29,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-// export const store = configureStore({
-//   reducer: combineReducers({
-//     users: usersReducer,
-//     user: userReducer,
-//     image: imageReducer,
-//     images: imagesReducer,
-//     auth: authReducer,
-//     aside: asideReducer,
-//     userAccount: userAccountReducer,
-//     laptops: laptopsReducer,
-//     laptop: laptopReducer,
-//     orders: ordersReducer,
-
-//   }),
-
-// });

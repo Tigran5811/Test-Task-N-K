@@ -11,7 +11,6 @@ import { getTasksSelector } from '../../redux/selectors/tasks';
 import {
   createTaskAction, deleteTaskAction, getTasksAction, updateTaskAction,
 } from '../../redux/actions/tasks';
-import { API } from '../../api';
 import { Search } from '../../components/Search/Search';
 
 const cx = classNames.bind(styles);
@@ -125,7 +124,7 @@ const Tasks = () => {
       <button onClick={openSearch}>Open Search</button>
       <button onClick={getTasks}>reset filter</button>
       <Search search={search} />
-      <button onClick={openModal}>Add Modal</button>
+      <button onClick={openModal}>Create Task</button>
 
       <div className={cx('modal', { open: modal })}>
         <form onSubmit={onSubmit}>
