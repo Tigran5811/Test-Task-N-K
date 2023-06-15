@@ -1,0 +1,92 @@
+.container {
+    overflow: overlay;
+    padding: 20px 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    padding: 40px;
+    border-radius: 7px;
+    background-color: rgb(76, 77, 77);
+    gap: 30px;
+    position: relative;
+    min-width: 300px;
+    min-width: 400px;
+    min-height: 500px;
+
+    & input {
+        padding: 20px;
+        border-radius: 7px;
+
+        &:focus {
+            background-color: rgb(235, 222, 222);
+        }
+    }
+}
+
+.option {
+    display: none;
+    width: 300px;
+    height: 300px;
+    background-color: antiquewhite;
+}
+
+.open_option {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    gap: 5px;
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 10;
+    font-size: 22px;
+    background-color: rgb(76, 77, 77);
+    color: red;
+}
+
+.modal {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.open {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container_employees {
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+    width: 100%;
+    text-align: center;
+
+    &:hover {
+        background-color: gray;
+    }
+}
+
+.scroll {
+    height: 100%;
+    width: 100%;
+}

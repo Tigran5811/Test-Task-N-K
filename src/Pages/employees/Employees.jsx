@@ -57,6 +57,12 @@ const Employees = () => {
 
   const closeModal = () => {
     setModal(false);
+    setStat({
+      name: '',
+      surname: '',
+      email: '',
+      position: '',
+    });
   };
 
   const deleteEmployee = (id) => {
@@ -81,6 +87,12 @@ const Employees = () => {
     };
     dispatch(updateEmployeeAction(id, data));
     setModal(false);
+    setStat({
+      name: '',
+      surname: '',
+      email: '',
+      position: '',
+    });
   };
 
   return (
@@ -101,9 +113,9 @@ const Employees = () => {
       {
                 employees && (
                 <Table
-                  employeesData={getMapEmployees(employees)}
+                  data={getMapEmployees(employees)}
                   columns={employeesColumns}
-                  deleteEmployee={deleteEmployee}
+                  deleteId={deleteEmployee}
                   openModalUpdate={openModalUpdate}
                 />
 

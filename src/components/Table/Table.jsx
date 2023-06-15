@@ -5,14 +5,14 @@ import styles from './Table.module.scss';
 const cx = classNames.bind(styles);
 
 export const Table = ({
-  employeesData, columns, onRowClick, deleteEmployee, openModalUpdate,
+  data, columns, onRowClick, deleteId, openModalUpdate,
 }) => (
   <table>
     <thead>
       <tr>{columns.map((cole, i) => <th key={i}>{cole.Header}</th>)}</tr>
     </thead>
     <tbody>
-      {employeesData?.map((item, index) => (
+      {data?.map((item, index) => (
         <tr
           key={index}
           className={cx({ pointer: Boolean(onRowClick) })}
@@ -21,26 +21,26 @@ export const Table = ({
             if (columns.Header === 'Email') {
               return <td key={i}><a href="mailto:">{item[`col${i + 1}`]}</a></td>;
             }
-            if (columns.Header === 'Delete employee') {
+            if (columns.Header === 'Delete') {
               return (
                 <td key={i}>
                   <button onClick={() => {
-                    deleteEmployee(item.col5);
+                    deleteId(item.col5);
                   }}
                   >
-                    Delete employee
+                    Delete
                   </button>
                 </td>
               );
             }
-            if (columns.Header === 'Update employee') {
+            if (columns.Header === 'Update') {
               return (
                 <td key={i}>
                   <button onClick={() => {
                     openModalUpdate(item);
                   }}
                   >
-                    Update employee
+                    Update
                   </button>
                 </td>
               );

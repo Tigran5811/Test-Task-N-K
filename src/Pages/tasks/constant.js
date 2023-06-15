@@ -1,18 +1,18 @@
-export const employeesColumns = [
+export const tasksColumns = [
   {
     Header: 'Name',
     accessor: 'col1',
   },
   {
-    Header: 'Surname',
+    Header: 'Description',
     accessor: 'col2',
   },
   {
-    Header: 'Email',
+    Header: 'Start Date',
     accessor: 'col3',
   },
   {
-    Header: 'position',
+    Header: 'End Date',
     accessor: 'col4',
   },
   {
@@ -20,11 +20,15 @@ export const employeesColumns = [
     accessor: 'col5',
   },
   {
-    Header: 'Delete',
+    Header: 'Employee Id',
     accessor: 'col6',
   },
   {
-    Header: 'Update',
+    Header: 'Delete',
     accessor: 'col7',
+  },
+  {
+    Header: 'Update',
+    accessor: 'col8',
   },
 ];

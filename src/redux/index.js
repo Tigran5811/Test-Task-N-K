@@ -2,6 +2,7 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import employeesReducer from './reducers/employees';
+import tasksReducer from './reducers/tasks';
 
 const persistConfig = {
   key: 'root',
@@ -10,6 +11,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   employees: employeesReducer,
+  tasks: tasksReducer,
 
 });
 

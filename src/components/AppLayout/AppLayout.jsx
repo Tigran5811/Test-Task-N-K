@@ -4,6 +4,7 @@ import styles from './AppLayout.module.scss';
 import { Header } from '../Header/Header';
 import Home from '../../Pages/home/Home';
 import Employees from '../../Pages/employees/Employees';
+import Tasks from '../../Pages/tasks/Tasks';
 
 const AppLayout = () => (
   <div className={styles.container}>
@@ -12,6 +13,8 @@ const AppLayout = () => (
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Employees" element={<Employees />} />
+        <Route path="/Tasks" element={<Tasks />} />
+
       </Routes>
     </main>
   </div>
