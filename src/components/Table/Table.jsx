@@ -16,7 +16,7 @@ export const Table = ({
         <tr key={index}>
           {columns.map((columns, i) => {
             if (columns.Header === 'Email') {
-              return <td><a href="mailto:">{item[`col${i + 1}`]}</a></td>;
+              return <td key={i}><a href="mailto:">{item[`col${i + 1}`]}</a></td>;
             }
             if (columns.Header === 'Delete') {
               return (
@@ -32,7 +32,7 @@ export const Table = ({
             }
             if (columns.Header === 'Update') {
               return (
-                <td>
+                <td key={i}>
                   <button onClick={() => {
                     openModalUpdate(item);
                   }}
@@ -44,16 +44,25 @@ export const Table = ({
             }
 
             return (
-              <td
-                role="button"
-                className={cx({ pointer: Boolean(onRowClick) })}
-                onClick={() => {
-                  onEmployeeRowClick(item.col5);
-                }}
-
-              >
-                {item[`col${i + 1}`]}
-              </td>
+              onEmployeeRowClick ? (
+                <td
+                  key={i}
+                  role="button"
+                  className={cx({ pointer: Boolean(onRowClick) })}
+                  onClick={() => {
+                    onEmployeeRowClick(item.col5);
+                  }}
+                >
+                  {item[`col${i + 1}`]}
+                </td>
+              ) : (
+                <td
+                  key={i}
+                  className={cx({ pointer: Boolean(onRowClick) })}
+                >
+                  {item[`col${i + 1}`]}
+                </td>
+              )
             );
           })}
         </tr>

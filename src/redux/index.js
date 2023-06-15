@@ -5,6 +5,7 @@ import employeesReducer from './reducers/employees';
 import tasksReducer from './reducers/tasks';
 import employeeReducer from './reducers/employee';
 import taskReducer from './reducers/task';
+import loaderReducer from './reducers/loader';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   employee: employeeReducer,
   task: taskReducer,
   tasks: tasksReducer,
+  loader: loaderReducer,
 
 });
 
