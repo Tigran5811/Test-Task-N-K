@@ -10,12 +10,16 @@ import { Table } from '../../components/Table/Table';
 import { getMapEmployees } from './utils';
 import { employeesColumns } from './constant';
 import styles from './Employees.module.scss';
+import { getEmployeesPageSelector } from '../../redux/selectors/page';
+import { getPageEmployeeAction } from '../../redux/actions/page';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 const cx = classNames.bind(styles);
 
 const Employees = () => {
   const dispatch = useDispatch();
   const employees = useSelector(getEmployeesSelector);
+  const page = useSelector(getEmployeesPageSelector);
   const [modal, setModal] = useState(false);
   const [flag, setFlag] = useState(true);
   const [id, setId] = useState(null);
@@ -33,6 +37,7 @@ const Employees = () => {
 
   const getEmployees = () => {
     dispatch(getEmployeesAction());
+    dispatch(getPageEmployeeAction(1));
   };
 
   useEffect(() => {
@@ -99,10 +104,13 @@ const Employees = () => {
   const onEmployeeRowClick = (id) => {
     navigate(`/employee?id=${id}`);
   };
+  const pageNext = (index) => {
+    dispatch(getPageEmployeeAction(index));
+  };
 
   return (
     <div className={styles.container}>
-      <button onClick={openModal}>Create Employee</button>
+      <button className="primary" onClick={openModal}>Create Employee</button>
       <div className={cx('modal', { open: modal })}>
         <form onSubmit={onSubmit}>
           <button type="button" className={styles.close} onClick={closeModal}>X</button>
@@ -115,18 +123,16 @@ const Employees = () => {
 
         </form>
       </div>
-      {
-                employees && (
-                <Table
-                  onEmployeeRowClick={onEmployeeRowClick}
-                  data={getMapEmployees(employees)}
-                  columns={employeesColumns}
-                  deleteId={deleteEmployee}
-                  openModalUpdate={openModalUpdate}
-                />
 
-                )
-            }
+      <Table
+        onEmployeeRowClick={onEmployeeRowClick}
+        page={getMapEmployees(page)}
+        columns={employeesColumns}
+        deleteId={deleteEmployee}
+        openModalUpdate={openModalUpdate}
+      />
+      <Pagination pageNext={pageNext} data={getMapEmployees(employees)} />
+
     </div>
 
   );

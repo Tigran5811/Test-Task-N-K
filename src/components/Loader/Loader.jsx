@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 export const Loader = () => {
   const loader = useSelector(getLoaderSelector);
   return (
-    <div className={cx('container', { open: loader })}>
+    <div className={cx('container', { open: loader === true })}>
       <div className={styles.loader} />
     </div>
   );

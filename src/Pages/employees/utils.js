@@ -1,4 +1,4 @@
-export const getMapEmployees = (employees) => employees?.map(({
+export const getMapEmployees = (data) => data?.map(({
   name, surname, email, position, id,
 }) => ({
   col1: name,

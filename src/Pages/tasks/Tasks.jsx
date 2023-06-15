@@ -12,6 +12,10 @@ import {
   createTaskAction, deleteTaskAction, getTasksAction, updateTaskAction,
 } from '../../redux/actions/tasks';
 import { Search } from '../../components/Search/Search';
+import { getPageTasksAction } from '../../redux/actions/page';
+import { Pagination } from '../../components/Pagination/Pagination';
+import { getMapEmployees } from '../employees/utils';
+import { getEmployeesPageSelector } from '../../redux/selectors/page';
 
 const cx = classNames.bind(styles);
 
@@ -24,6 +28,7 @@ const Tasks = () => {
   const tasks = useSelector(getTasksSelector);
   const [flag, setFlag] = useState(true);
   const [search, setSearch] = useState(false);
+  const page = useSelector(getEmployeesPageSelector);
 
   const [{
     name, description, startDate, endDate, employeeId,
@@ -37,6 +42,7 @@ const Tasks = () => {
   });
   const getTasks = () => {
     dispatch(getTasksAction());
+    dispatch(getPageTasksAction(1));
   };
 
   useEffect(() => {
@@ -118,7 +124,9 @@ const Tasks = () => {
       employeeId: '',
     });
   };
-
+  const pageNext = (index) => {
+    dispatch(getPageTasksAction(index));
+  };
   return (
     <div className={styles.container}>
       <button onClick={openSearch}>Open Search</button>
@@ -163,11 +171,13 @@ const Tasks = () => {
         </form>
       </div>
       <Table
-        data={getMapTasks(tasks)}
+        page={getMapEmployees(page)}
         columns={tasksColumns}
         deleteId={deleteTask}
         openModalUpdate={openModalUpdate}
       />
+      <Pagination pageNext={pageNext} data={getMapTasks(tasks)} />
+
     </div>
   );
 };

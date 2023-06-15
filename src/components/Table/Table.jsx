@@ -1,18 +1,19 @@
 import React from 'react';
 import classNames from 'classnames/bind';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './Table.module.scss';
 
 const cx = classNames.bind(styles);
 
 export const Table = ({
-  data, columns, onRowClick, deleteId, openModalUpdate, onEmployeeRowClick,
+  columns, onRowClick, deleteId, openModalUpdate, onEmployeeRowClick, page,
 }) => (
   <table>
     <thead>
       <tr>{columns.map((cole, i) => <th key={i}>{cole.Header}</th>)}</tr>
     </thead>
     <tbody>
-      {data?.map((item, index) => (
+      {page?.map((item, index) => (
         <tr key={index}>
           {columns.map((columns, i) => {
             if (columns.Header === 'Email') {
@@ -20,7 +21,7 @@ export const Table = ({
             }
             if (columns.Header === 'Delete') {
               return (
-                <td>
+                <td key={i}>
                   <button onClick={() => {
                     deleteId(item.col5);
                   }}
@@ -68,6 +69,5 @@ export const Table = ({
         </tr>
       ))}
     </tbody>
-    <tfoot />
   </table>
 );
