@@ -16,6 +16,9 @@ const Employees = () => {
   const dispatch = useDispatch();
   const employees = useSelector(getEmployeesSelector);
   const [modal, setModal] = useState(false);
+  const [flag, setFlag] = useState(true);
+  const [id, setId] = useState(null);
+
   const [{
     name, surname, email, position,
   }, setStat] = useState({
@@ -36,6 +39,7 @@ const Employees = () => {
 
   const openModal = () => {
     setModal(true);
+    setFlag(true);
   };
 
   const onChange = ({ currentTarget: { value, name } }) => {
@@ -58,16 +62,25 @@ const Employees = () => {
   const deleteEmployee = (id) => {
     dispatch(deleteEmployeeAction(id));
   };
-  const updateEmployee = (item) => {
+
+  const openModalUpdate = (item) => {
     setModal(true);
+    setId(item.col5);
+    setFlag(false);
     setStat({
       name: item.col1,
       surname: item.col2,
       email: item.col3,
       position: item.col4,
     });
-    // dispatch(updateEmployeeAction(item.col5));
-    // setModal(false);
+  };
+
+  const updateEmployee = () => {
+    const data = {
+      name, surname, email, position,
+    };
+    dispatch(updateEmployeeAction(id, data));
+    setModal(false);
   };
 
   return (
@@ -75,12 +88,14 @@ const Employees = () => {
       <button onClick={openModal}>Add Modal</button>
       <div className={cx('modal', { open: modal })}>
         <form onSubmit={onSubmit}>
-          <button className={styles.close} onClick={closeModal}>X</button>
+          <button type="button" className={styles.close} onClick={closeModal}>X</button>
           <input onChange={onChange} value={name} name="name" placeholder="Name" type="text" />
           <input onChange={onChange} value={surname} name="surname" placeholder="Surname" type="text" />
           <input onChange={onChange} value={email} name="email" placeholder="Email" type="email" />
           <input onChange={onChange} value={position} name="position" placeholder="Position" type="text" />
-          <button disabled={(!name || !surname) || (!email || !position)} type="submit">Create</button>
+          {flag && <button disabled={(!name || !surname) || (!email || !position)} type="submit">Create</button>}
+          {!flag && <button type="button" onClick={updateEmployee}>Update</button>}
+
         </form>
       </div>
       {
@@ -89,7 +104,7 @@ const Employees = () => {
                   employeesData={getMapEmployees(employees)}
                   columns={employeesColumns}
                   deleteEmployee={deleteEmployee}
-                  updateEmployee={updateEmployee}
+                  openModalUpdate={openModalUpdate}
                 />
 
                 )

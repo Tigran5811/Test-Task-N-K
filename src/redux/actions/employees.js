@@ -30,9 +30,9 @@ export const deleteEmployeeAction = (id) => async (dispatch) => {
   }
 };
 
-export const updateEmployeeAction = (id) => async (dispatch) => {
+export const updateEmployeeAction = (id, data) => async (dispatch) => {
   try {
-    await API.employees.updateEmployee(id);
+    await API.employees.updateEmployee(id, data);
     dispatch(getEmployeesAction());
   } catch (error) {
     alert(error.statusText);

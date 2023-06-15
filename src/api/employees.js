@@ -20,7 +20,5 @@ export const updateEmployee = async (id, data) => axios({
   method: 'put',
   url: `employees/${id}`,
   data,
-  headers: {
-    'Content-Type': 'application/json',
-  },
+
 });

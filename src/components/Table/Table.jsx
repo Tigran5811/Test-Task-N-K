@@ -5,7 +5,7 @@ import styles from './Table.module.scss';
 const cx = classNames.bind(styles);
 
 export const Table = ({
-  employeesData, columns, onRowClick, deleteEmployee, updateEmployee,
+  employeesData, columns, onRowClick, deleteEmployee, openModalUpdate,
 }) => (
   <table>
     <thead>
@@ -37,7 +37,7 @@ export const Table = ({
               return (
                 <td key={i}>
                   <button onClick={() => {
-                    updateEmployee(item);
+                    openModalUpdate(item);
                   }}
                   >
                     Update employee
