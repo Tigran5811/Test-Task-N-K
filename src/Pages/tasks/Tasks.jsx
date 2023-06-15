@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,11 @@ import { Table } from '../../components/Table/Table';
 import { tasksColumns } from './constant';
 import { getMapTasks } from './utils';
 import { getTasksSelector } from '../../redux/selectors/tasks';
-import { createTaskAction, deleteTaskAction, updateTaskAction } from '../../redux/actions/tasks';
+import {
+  createTaskAction, deleteTaskAction, getTasksAction, updateTaskAction,
+} from '../../redux/actions/tasks';
+import { API } from '../../api';
+import { Search } from '../../components/Search/Search';
 
 const cx = classNames.bind(styles);
 
@@ -20,6 +24,7 @@ const Tasks = () => {
   const employees = useSelector(getEmployeesSelector);
   const tasks = useSelector(getTasksSelector);
   const [flag, setFlag] = useState(true);
+  const [search, setSearch] = useState(false);
 
   const [{
     name, description, startDate, endDate, employeeId,
@@ -31,6 +36,13 @@ const Tasks = () => {
     employeeId: '',
 
   });
+  const getTasks = () => {
+    dispatch(getTasksAction());
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
 
   const onChange = ({ currentTarget: { value, name } }) => {
     setStat((prev) => ({ ...prev, [name]: value }));
@@ -63,6 +75,9 @@ const Tasks = () => {
 
   const openOptions = () => {
     setOption(!option);
+  };
+  const openSearch = () => {
+    setSearch(!search);
   };
 
   const selectId = (id) => {
@@ -107,7 +122,11 @@ const Tasks = () => {
 
   return (
     <div className={styles.container}>
+      <button onClick={openSearch}>Open Search</button>
+      <button onClick={getTasks}>reset filter</button>
+      <Search search={search} />
       <button onClick={openModal}>Add Modal</button>
+
       <div className={cx('modal', { open: modal })}>
         <form onSubmit={onSubmit}>
           <button type="button" className={styles.close} onClick={closeModal}>X</button>

@@ -20,5 +20,10 @@ export const updateTask = async (id, data) => axios({
   method: 'put',
   url: `tasks/${id}`,
   data,
+});
+
+export const searchTask = async (nameLike = '', descriptionLike = '', startData = '', endDate = '') => axios({
+  method: 'get',
+  url: `tasks?name_like=${nameLike}&description_like=${descriptionLike}${startData}${endDate}`,
 
 });

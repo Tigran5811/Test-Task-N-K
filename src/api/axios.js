@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create();
-instance.defaults.baseURL = 'https://rocky-temple-83495.herokuapp.com';
+instance.defaults.baseURL = 'https://rocky-temple-83495.herokuapp.com/';
 instance.defaults.method = 'POST';
 
 instance.interceptors.response.use((config) => config.data, (config) => {

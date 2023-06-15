@@ -12,12 +12,18 @@ html, body{
 	height: 100% ;
 	width: 100%;
 	font-size: 100%;
-	overflow: hidden;
+
 	font-size: 13px;
 	-ms-text-size-adjust: 100%;
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
-	overflow: scroll;
+}
+body{
+	overflow-x: hidden;
+	overflow-y: auto;
+
+
+
 }
 
 input,button, textarea{font-family: inherit;}

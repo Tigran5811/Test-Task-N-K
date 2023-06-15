@@ -1,5 +1,5 @@
 import { API } from '../../api';
-import { DELETE_TASK, GET_TASKS } from '../reducers/tasks';
+import { DELETE_TASK, FILTER_TASK, GET_TASKS } from '../reducers/tasks';
 
 export const getTasksAction = () => async (dispatch) => {
   try {
@@ -35,6 +35,21 @@ export const updateTaskAction = (id, data) => async (dispatch) => {
   try {
     await API.tasks.updateTask(id, data);
     dispatch(getTasksAction());
+  } catch (error) {
+    alert(error.statusText);
+  }
+};
+
+export const filterTaskAction = (
+  nameLike,
+  descriptionLike,
+  startDates,
+  endDates,
+) => async (dispatch) => {
+  try {
+    console.log(nameLike, descriptionLike, startDates, endDates);
+    const data = await API.tasks.searchTask(nameLike, descriptionLike, startDates, endDates);
+    dispatch({ type: FILTER_TASK, data });
   } catch (error) {
     alert(error.statusText);
   }
