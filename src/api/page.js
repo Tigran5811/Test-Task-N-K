@@ -1,11 +1,11 @@
 import axios from './axios';
 
-export const getPageEmployee = async (num) => axios({
+export const getEmployees = async () => axios({
   method: 'GET',
-  url: `employees?_page=${num}&_limit=10`,
+  url: 'employees',
 });
 
-export const getPageTasks = async (num) => axios({
+export const getTasks = async () => axios({
   method: 'GET',
-  url: `tasks?_page=${num}&_limit=10`,
+  url: 'tasks',
 });

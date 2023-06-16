@@ -23,7 +23,7 @@
         "no-shadow": "off",
         "react/button-has-type": "off",
         "react/state-in-constructor": "off",
-        "jsx-a11y/interactive-supports-focus": "off",
+        "jsx-a11y/interactive-supports-focus": "off", 
         "jsx-a11y/click-events-have-key-events": "off",
         "react/no-unused-state": "off",
         "react/destructuring-assignment": "off",
@@ -37,6 +37,7 @@
         "default-param-last": "off",
         "no-underscore-dangle": "off",
         "jsx-a11y/no-noninteractive-element-to-interactive-role": "off",
-        "no-plusplus": "off"
+        "no-plusplus": "off",
+        "no-alert":"off"
     }
 }

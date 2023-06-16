@@ -1,19 +1,19 @@
 import React from 'react';
 import classNames from 'classnames/bind';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from './Table.module.scss';
+import { Button } from '../Button/Button';
 
 const cx = classNames.bind(styles);
 
 export const Table = ({
-  columns, onRowClick, deleteId, openModalUpdate, onEmployeeRowClick, page,
+  columns, onRowClick, deleteId, openModalUpdate, onEmployeeRowClick, data,
 }) => (
   <table>
     <thead>
       <tr>{columns.map((cole, i) => <th key={i}>{cole.Header}</th>)}</tr>
     </thead>
     <tbody>
-      {page?.map((item, index) => (
+      {data?.map((item, index) => (
         <tr key={index}>
           {columns.map((columns, i) => {
             if (columns.Header === 'Email') {
@@ -22,28 +22,27 @@ export const Table = ({
             if (columns.Header === 'Delete') {
               return (
                 <td key={i}>
-                  <button onClick={() => {
-                    deleteId(item.col5);
-                  }}
-                  >
-                    Delete
-                  </button>
+                  <Button
+                    text="Delete"
+                    onClick={() => {
+                      deleteId(item.col5);
+                    }}
+                  />
                 </td>
               );
             }
             if (columns.Header === 'Update') {
               return (
                 <td key={i}>
-                  <button onClick={() => {
-                    openModalUpdate(item);
-                  }}
-                  >
-                    Update
-                  </button>
+                  <Button
+                    onClick={() => {
+                      openModalUpdate(item);
+                    }}
+                    text="Update"
+                  />
                 </td>
               );
             }
-
             return (
               onEmployeeRowClick ? (
                 <td

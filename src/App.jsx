@@ -1,5 +1,5 @@
-import { BrowserRouter } from "react-router-dom";
-import AppLayout from "./components/AppLayout/AppLayout";
+import { BrowserRouter } from 'react-router-dom';
+import AppLayout from './components/AppLayout/AppLayout';
 
 const App = () => (
   <BrowserRouter>

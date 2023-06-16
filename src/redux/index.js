@@ -6,7 +6,8 @@ import tasksReducer from './reducers/tasks';
 import employeeReducer from './reducers/employee';
 import taskReducer from './reducers/task';
 import loaderReducer from './reducers/loader';
-import pageReducer from './reducers/page';
+import pageEmployeeReducer from './reducers/pageEmployee';
+import pageTasksReducer from './reducers/pageTasks';
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +20,8 @@ const rootReducer = combineReducers({
   task: taskReducer,
   tasks: tasksReducer,
   loader: loaderReducer,
-  page: pageReducer,
+  pageTasksLength: pageTasksReducer,
+  pageEmployeeLength: pageEmployeeReducer,
 
 });
 

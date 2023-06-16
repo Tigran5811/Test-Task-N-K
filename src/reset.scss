@@ -1,15 +1,31 @@
-*{padding: 0;margin: 0;border:  0;}
-*,*:before,*:after{
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+*,
+*:before,
+*:after {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-:focus,:active{outline: none;}
-a:focus,a:active{outline: none;}
+
+:focus,
+:active {
+	outline: none;
+}
+
+a:focus,
+a:active {
+	outline: none;
+}
 
 
-html, body{
-	height: 100% ;
+html,
+body {
+	height: 100%;
 	width: 100%;
 	font-size: 100%;
 
@@ -18,7 +34,8 @@ html, body{
 	-moz-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 }
-body{
+
+body {
 	overflow-x: hidden;
 	overflow-y: auto;
 
@@ -26,26 +43,77 @@ body{
 
 }
 
-input,button, textarea{font-family: inherit;}
+input,
+button,
+textarea {
+	font-family: inherit;
+}
 
-input::-ms-clear{display: none;}
-button{cursor: pointer;}
-button::-moz-focus-inner {padding: 0;border: 0}
-a, a:visited{text-decoration: none;}
-a:hover{text-decoration: none;}
-ul li{list-style: none;}
+input::-ms-clear {
+	display: none;
+}
+
+button {
+	cursor: pointer;
+}
+
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0
+}
+
+a,
+a:visited {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+ul li {
+	list-style: none;
+}
+
 /* img{vertical-align: top} */
 
-h1,h2,h3,h4,h5,h6{font-size: inherit;font-weight: 400}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: 400
+}
 
-body{
+body {
 	font-family: Verdana, sans-serif;
 }
-a{color: black;}
 
-.button, button { touch-action:manipulation;-webkit-user-drag: none;  height: 30px; text-align: center; border-radius: 7px; display: flex !important; align-items: center; justify-content: center; cursor: pointer; padding: 0 15px; user-select: none; font-weight: 700 !important; font-size: 13px; white-space: nowrap; position: relative; background: transparent; /*flex-shrink: 0;*/ overflow: hidden; line-height: 30px; text-decoration: none }
-.button:hover button:hover{ background-image:linear-gradient(to top, rgba(0,0,0,.05) 0%,rgba(0,0,0,.05) 100%);}
+a {
+	color: black;
+}
 
-.button:active button:active {transform:translateY(1px)}
+.button,
+button {
+	touch-action: manipulation;
+	-webkit-user-drag: none;
+	height: 30px;
+	text-align: center;
+	border-radius: 7px;
+	display: flex !important;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	padding: 0 15px;
+	user-select: none;
+	font-weight: 700 !important;
+	font-size: 13px;
+	white-space: nowrap;
+	background: transparent;
+	overflow: hidden;
+	line-height: 30px;
+	text-decoration: none
+}
 
-.primary{background: #1677ff; color: #fff;}

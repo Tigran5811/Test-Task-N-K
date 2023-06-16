@@ -21,6 +21,5 @@ const AppLayout = () => (
     </main>
     <Loader />
   </div>
-
 );
 export default AppLayout;

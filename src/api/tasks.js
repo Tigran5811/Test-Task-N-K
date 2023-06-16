@@ -1,8 +1,8 @@
 import axios from './axios';
 
-export const getTasks = async () => axios({
+export const getPageTasks = async (num) => axios({
   method: 'GET',
-  url: 'tasks',
+  url: `tasks?_page=${num}&_limit=10`,
 });
 
 export const postTask = async (data) => axios({

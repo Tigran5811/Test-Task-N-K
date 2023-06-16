@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Tasks.module.scss';
 import { getEmployeesSelector } from '../../redux/selectors/employees';
@@ -12,10 +11,11 @@ import {
   createTaskAction, deleteTaskAction, getTasksAction, updateTaskAction,
 } from '../../redux/actions/tasks';
 import { Search } from '../../components/Search/Search';
-import { getPageTasksAction } from '../../redux/actions/page';
+import { getPageTasksAction } from '../../redux/actions/pageTasks';
 import { Pagination } from '../../components/Pagination/Pagination';
-import { getMapEmployees } from '../employees/utils';
-import { getEmployeesPageSelector } from '../../redux/selectors/page';
+import { Button } from '../../components/Button/Button';
+import { Modal } from '../../components/Modal/Modal';
+import { getTasksPageSelector } from '../../redux/selectors/pageTasks';
 
 const cx = classNames.bind(styles);
 
@@ -27,9 +27,7 @@ const Tasks = () => {
   const employees = useSelector(getEmployeesSelector);
   const tasks = useSelector(getTasksSelector);
   const [flag, setFlag] = useState(true);
-  const [search, setSearch] = useState(false);
-  const page = useSelector(getEmployeesPageSelector);
-
+  const tasksLength = useSelector(getTasksPageSelector);
   const [{
     name, description, startDate, endDate, employeeId,
   }, setStat] = useState({
@@ -38,16 +36,20 @@ const Tasks = () => {
     startDate: '',
     endDate: '',
     employeeId: '',
-
   });
+
   const getTasks = () => {
-    dispatch(getTasksAction());
-    dispatch(getPageTasksAction(1));
+    dispatch(getTasksAction(1));
+    dispatch(getPageTasksAction);
   };
 
   useEffect(() => {
     getTasks();
   }, []);
+
+  const pageNext = (index) => {
+    dispatch(getTasksAction(index));
+  };
 
   const onChange = ({ currentTarget: { value, name } }) => {
     setStat((prev) => ({ ...prev, [name]: value }));
@@ -60,6 +62,12 @@ const Tasks = () => {
     };
     dispatch(createTaskAction(data));
     setModal(false);
+    setStat({
+      name: '',
+      description: '',
+      startDate: '',
+      endDate: '',
+    });
   };
 
   const closeModal = () => {
@@ -81,9 +89,6 @@ const Tasks = () => {
   const openOptions = () => {
     setOption(!option);
   };
-  const openSearch = () => {
-    setSearch(!search);
-  };
 
   const selectId = (id) => {
     setId(id);
@@ -104,7 +109,6 @@ const Tasks = () => {
       startDate: item.col3,
       endDate: item.col4,
       employeeId: item.col5,
-
     });
   };
 
@@ -115,7 +119,6 @@ const Tasks = () => {
     dispatch(updateTaskAction(id, data));
     setModal(false);
     setId(null);
-
     setStat({
       name: '',
       description: '',
@@ -124,19 +127,15 @@ const Tasks = () => {
       employeeId: '',
     });
   };
-  const pageNext = (index) => {
-    dispatch(getPageTasksAction(index));
-  };
+
   return (
     <div className={styles.container}>
-      <button onClick={openSearch}>Open Search</button>
-      <button onClick={getTasks}>reset filter</button>
-      <Search search={search} />
-      <button onClick={openModal}>Create Task</button>
-
-      <div className={cx('modal', { open: modal })}>
+      <Button className="primary" onClick={getTasks} text="Reset filter" />
+      <Search />
+      <Button onClick={openModal} className="primary" text="Create Task" />
+      <Modal modal={modal}>
         <form onSubmit={onSubmit}>
-          <button type="button" className={styles.close} onClick={closeModal}>X</button>
+          <Button type="button" close onClick={closeModal} text="X" />
           <input onChange={onChange} value={name} name="name" placeholder="Name" type="text" />
           <input onChange={onChange} value={description} name="description" placeholder="Description" type="text" />
           <input onChange={onChange} value={startDate} name="startDate" placeholder="Start Date" type="date" />
@@ -164,20 +163,18 @@ const Tasks = () => {
               }
             </div>
           </div>
-          <button onClick={openOptions} type="button">select options</button>
-          {flag && <button disabled={(!name || !description) || (!startDate || !endDate)} type="submit">Create</button>}
-          {!flag && <button type="button" onClick={updateEmployee}>Update</button>}
-
+          <Button className="primary" onClick={openOptions} type="button" text="select options" />
+          {flag && <Button disabled={(!name || !description) || (!startDate || !endDate)} type="submit" text="Create" />}
+          {!flag && <Button type="button" onClick={updateEmployee} text="Update" />}
         </form>
-      </div>
+      </Modal>
       <Table
-        page={getMapEmployees(page)}
+        data={getMapTasks(tasks)}
         columns={tasksColumns}
         deleteId={deleteTask}
         openModalUpdate={openModalUpdate}
       />
-      <Pagination pageNext={pageNext} data={getMapTasks(tasks)} />
-
+      <Pagination pageNext={pageNext} data={tasksLength} />
     </div>
   );
 };

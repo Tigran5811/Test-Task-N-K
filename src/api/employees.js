@@ -1,8 +1,8 @@
 import axios from './axios';
 
-export const getEmployees = async () => axios({
+export const getPageEmployee = async (num) => axios({
   method: 'GET',
-  url: 'employees',
+  url: `employees?_page=${num}&_limit=10`,
 });
 
 export const postEmployee = async (data) => axios({

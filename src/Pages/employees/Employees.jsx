@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames/bind';
 import { useNavigate } from 'react-router-dom';
 import { getEmployeesSelector } from '../../redux/selectors/employees';
 import {
@@ -10,21 +9,20 @@ import { Table } from '../../components/Table/Table';
 import { getMapEmployees } from './utils';
 import { employeesColumns } from './constant';
 import styles from './Employees.module.scss';
-import { getEmployeesPageSelector } from '../../redux/selectors/page';
-import { getPageEmployeeAction } from '../../redux/actions/page';
+import { getEmployeesPageSelector } from '../../redux/selectors/pageEmployee';
+import { getPageEmployeeAction } from '../../redux/actions/pageEmployee';
 import { Pagination } from '../../components/Pagination/Pagination';
-
-const cx = classNames.bind(styles);
+import { Button } from '../../components/Button/Button';
+import { Modal } from '../../components/Modal/Modal';
 
 const Employees = () => {
   const dispatch = useDispatch();
   const employees = useSelector(getEmployeesSelector);
-  const page = useSelector(getEmployeesPageSelector);
+  const employeesLength = useSelector(getEmployeesPageSelector);
   const [modal, setModal] = useState(false);
   const [flag, setFlag] = useState(true);
   const [id, setId] = useState(null);
   const navigate = useNavigate();
-
   const [{
     name, surname, email, position,
   }, setStat] = useState({
@@ -36,8 +34,8 @@ const Employees = () => {
   });
 
   const getEmployees = () => {
-    dispatch(getEmployeesAction());
-    dispatch(getPageEmployeeAction(1));
+    dispatch(getEmployeesAction(1));
+    dispatch(getPageEmployeeAction());
   };
 
   useEffect(() => {
@@ -47,6 +45,10 @@ const Employees = () => {
   const openModal = () => {
     setModal(true);
     setFlag(true);
+  };
+
+  const pageNext = (index) => {
+    dispatch(getEmployeesAction(index));
   };
 
   const onChange = ({ currentTarget: { value, name } }) => {
@@ -60,6 +62,12 @@ const Employees = () => {
     };
     dispatch(createEmployeeAction(data));
     setModal(false);
+    setStat({
+      name: '',
+      surname: '',
+      email: '',
+      position: '',
+    });
   };
 
   const closeModal = () => {
@@ -101,37 +109,34 @@ const Employees = () => {
       position: '',
     });
   };
+
   const onEmployeeRowClick = (id) => {
     navigate(`/employee?id=${id}`);
-  };
-  const pageNext = (index) => {
-    dispatch(getPageEmployeeAction(index));
   };
 
   return (
     <div className={styles.container}>
-      <button className="primary" onClick={openModal}>Create Employee</button>
-      <div className={cx('modal', { open: modal })}>
+      <Button onClick={openModal} text="Create Employee" />
+      <Modal modal={modal}>
         <form onSubmit={onSubmit}>
-          <button type="button" className={styles.close} onClick={closeModal}>X</button>
+          <Button type="button" close onClick={closeModal} text="X" />
           <input onChange={onChange} value={name} name="name" placeholder="Name" type="text" />
           <input onChange={onChange} value={surname} name="surname" placeholder="Surname" type="text" />
           <input onChange={onChange} value={email} name="email" placeholder="Email" type="email" />
           <input onChange={onChange} value={position} name="position" placeholder="Position" type="text" />
-          {flag && <button disabled={(!name || !surname) || (!email || !position)} type="submit">Create</button>}
-          {!flag && <button type="button" onClick={updateEmployee}>Update</button>}
-
+          {flag && <Button disabled={(!name || !surname) || (!email || !position)} type="submit" text="Create" />}
+          {!flag && <Button type="button" onClick={updateEmployee} text="Update" />}
         </form>
-      </div>
+      </Modal>
 
       <Table
         onEmployeeRowClick={onEmployeeRowClick}
-        page={getMapEmployees(page)}
+        data={getMapEmployees(employees)}
         columns={employeesColumns}
         deleteId={deleteEmployee}
         openModalUpdate={openModalUpdate}
       />
-      <Pagination pageNext={pageNext} data={getMapEmployees(employees)} />
+      <Pagination pageNext={pageNext} data={employeesLength} />
 
     </div>
 
